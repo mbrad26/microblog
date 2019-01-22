@@ -3,7 +3,9 @@
     <words>
       <w>endblock</w>
       <w>gmail</w>
+      <w>googlemail</w>
       <w>microblog</w>
+      <w>smtp</w>
       <w>sqlalchemy</w>
       <w>unfollow</w>
     </words>

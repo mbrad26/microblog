@@ -16,6 +16,12 @@ login.login_view = 'login'
 
 from app import routes, models, errors
 
+# emails sent out :
+# set MAIL_SERVER=smtp.googlemail.com
+# set MAIL_PORT=587
+# set MAIL_USE_TLS=1
+# set MAIL_USERNAME=<your-gmail-username>
+# set MAIL_PASSWORD=<your-gmail-password>
 
 if not app.debug:
     if app.config['MAIL_SERVER']:
