@@ -2,8 +2,10 @@
   <dictionary name="mbrad">
     <words>
       <w>endblock</w>
+      <w>gmail</w>
       <w>microblog</w>
       <w>sqlalchemy</w>
+      <w>unfollow</w>
     </words>
   </dictionary>
 </component>
