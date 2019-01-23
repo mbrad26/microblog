@@ -44,7 +44,7 @@ class User(UserMixin, db.Model):
         return f'https://www.gravatar.com/avatar/{digest}?d=identicon&s={size}'
 
     def is_following(self, user):
-        return self.followed.filter(followers.c.followed_id == user.id).count > 0
+        return self.followed.filter(followers.c.followed_id == user.id).count() > 0
 
     def follow(self, user):
         if not self.is_following(user):
