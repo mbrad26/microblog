@@ -1,7 +1,8 @@
 from app import app, db
 from flask import render_template, flash, redirect, url_for, request
 from datetime import datetime
-from app.forms import LoginForm, RegistrationForm, EditProfileForm, PostForm
+from app.email import send_password_reset_email
+from app.forms import LoginForm, RegistrationForm, EditProfileForm, PostForm, ResetPasswordRequestForm
 from app.models import User, Post
 from flask_login import current_user, login_user, logout_user, login_required
 from werkzeug.urls import url_parse
@@ -25,6 +26,7 @@ def index():
         db.session.commit()
         flash('Your message is now live.')
         return redirect(url_for('index'))
+    # posts pagination and navigation
     page = request.args.get('page', 1, type=int)
     posts = current_user.followed_posts().paginate(page, app.config['POSTS_PER_PAGE'],
                                                    False)
@@ -37,6 +39,7 @@ def index():
 @app.route('/explore')
 @login_required
 def explore():
+    # posts pagination and navigation
     page = request.args.get('page', 1, type=int)
     posts = Post.query.order_by(Post.timestamp.desc()).paginate(page, app.config['POSTS_PER_PAGE'],
                                                                 False)
@@ -68,6 +71,7 @@ def login():
 @login_required
 def user(username):
     user = User.query.filter_by(username=username).first_or_404()
+    # posts pagination and navigation
     page = request.args.get('page', 1, type=int)
     posts = user.posts.order_by(Post.timestamp.desc()).paginate(page, app.config['POSTS_PER_PAGE'],
                                                                 False)
@@ -147,9 +151,18 @@ def unfollow(username):
     return redirect(url_for('user', username=username))
 
 
-
-
-
+@app.route('/reset_password_request', methods=['GET', 'POST'])
+def reset_password_request():
+    if current_user.is_authenticated:
+        return redirect(url_for('index'))
+    form = ResetPasswordRequestForm()
+    if form.validate_on_submit():
+        user = User.query.filter_by(email=form.email.data).first()
+        if user:
+            send_password_reset_email(user)
+        flash('Check your email for the instructions to reset your password.')
+        return redirect(url_for('login'))
+    return render_template('reset_password_request.html', title='Reset Password', form=form)
 
 
 
