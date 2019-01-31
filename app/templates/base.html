@@ -52,6 +52,13 @@
     </div>
 {% endblock %}
 
+<!--add a <script> tag that imports the library-->
+
+{% block scripts %}
+    {{ super() }}
+    {{ moment.include_moment() }}
+{% endblock %}
+
 
 
 
