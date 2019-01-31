@@ -23,3 +23,4 @@ def send_password_reset_email(user):
                recipients=[user.email],
                text_body=render_template('email/reset_password.txt', token=token, user=user),
                html_body=render_template('email/reset_password.html', token=token, user=user))
+ 
