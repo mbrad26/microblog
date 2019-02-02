@@ -2,9 +2,11 @@
   <dictionary name="mbrad">
     <words>
       <w>darkblue</w>
+      <w>dest</w>
       <w>elif</w>
       <w>endblock</w>
       <w>endfor</w>
+      <w>endset</w>
       <w>endwith</w>
       <w>gmail</w>
       <w>googlemail</w>
