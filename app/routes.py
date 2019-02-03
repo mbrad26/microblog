@@ -1,3 +1,4 @@
+import sqlite3
 from datetime import datetime
 from flask import render_template, flash, redirect, url_for, request, g, jsonify
 from flask_login import login_user, logout_user, current_user, login_required
@@ -11,6 +12,14 @@ from app.email import send_password_reset_email
 from flask_babel import get_locale
 from guess_language import guess_language
 from app.translate import translate
+
+
+@app.route('/tables')
+@login_required
+def tables():
+    user = User.query.all()
+    post = Post.query.all()
+    return render_template('tables.html', title='DataBase Content', user=user, post=post)
 
 
 @app.route('/translate', methods=['POST'])

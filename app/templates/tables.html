@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+
+
+{% block app_content %}
+    <h1>Tables content</h1>
+    <br>
+    {% for u in user %}
+        <p> {{ u.id }}  | {{ u.username }} | {{ u.email }} | {{ u.last_seen }}</p>
+    {% endfor %}
+{% endblock %}
